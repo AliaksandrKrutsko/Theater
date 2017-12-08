@@ -15,11 +15,12 @@ public class View {
 
     private static InputStream in = View.class.getResourceAsStream("/event.properties");
 
+    ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+    Action action = (Action) context.getBean("action");
+    Event event = (Event) context.getBean("event");
+
     public CommandType enterCommand() throws IOException {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        Action action = (Action) context.getBean("action");
-        Event event = (Event) context.getBean("event");
         CommandType commandType = null;
         Scanner scanner = new Scanner(System.in);
         System.out.println("please, enter command");
