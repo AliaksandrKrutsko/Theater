@@ -6,13 +6,12 @@ import epam.service.EventService;
 import epam.service.ServiceException;
 import epam.service.ServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class EnterEvent implements Command {
 
     private String response;
-
-    @Autowired
-    Event event;
 
     @Override
     public String execute(Action action) {
@@ -28,6 +27,7 @@ public class EnterEvent implements Command {
         System.out.println(response);
 
         return response;
+
     }
 
 }

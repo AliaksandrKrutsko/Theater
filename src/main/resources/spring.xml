@@ -33,12 +33,13 @@
         <property name="event" ref="event"/>
     </bean>
 
+    <bean id="view" class="epam.view.View"/>
+
     <bean id="event" class="epam.beans.Event">
         <property name="name" value="${name}"/>
         <property name="price" value="${price}"/>
     </bean>
 
     <import resource="command.xml"/>
-
 
 </beans>

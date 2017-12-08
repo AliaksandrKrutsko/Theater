@@ -6,8 +6,12 @@ import java.util.Date;
 public class Event implements Serializable {
 
     private String name;
-    private double price;
+    private String price;
     private Date date;
+
+    public Event() {
+
+    }
 
     public Date getDate() {
         return date;
@@ -25,11 +29,11 @@ public class Event implements Serializable {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
