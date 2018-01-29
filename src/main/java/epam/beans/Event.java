@@ -20,6 +20,12 @@ public class Event implements Serializable, Comparable<Event> {
         this.price = price;
     }
 
+    public Event(String name, int price, LocalDateTime date) {
+        this.name = name;
+        this.price = price;
+        this.date = date;
+    }
+
     public LocalDateTime getDate() {
         return date;
     }

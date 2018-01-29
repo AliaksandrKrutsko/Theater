@@ -21,6 +21,4 @@ public class DaoException extends Exception {
         super(message, e);
     }
 
-
-
 }

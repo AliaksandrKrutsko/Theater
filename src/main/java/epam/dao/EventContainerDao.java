@@ -2,6 +2,9 @@ package epam.dao;
 
 import epam.beans.Event;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -12,10 +15,13 @@ import java.util.*;
 
 public class EventContainerDao implements EventDao {
 
+    String pattern = "yy-MM-dd hh.mm";
     Map<String, String> eventBase;
+    DateTimeFormatter dateTimeFormat = DateTimeFormat.forPattern(pattern);
 
     Map<Integer, Event> events = new HashMap<Integer, Event>() {{
-        put(1, new Event("SomeName", 12));
+        put(1, new Event("Event", 12, LocalDateTime.parse("08-08-12 11.00", dateTimeFormat)));
+        put(2, new Event("Another event", 15, LocalDateTime.parse("08-08-12 10.00", dateTimeFormat)));
     }};
 
 
@@ -37,6 +43,9 @@ public class EventContainerDao implements EventDao {
             if (event.getName().equals(eventName)) {
                 currentEvent = event.toString();
             }
+        }
+        if (currentEvent==null) {
+            currentEvent = "There is no such event";
         }
         return currentEvent;
     }
