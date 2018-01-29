@@ -1,23 +1,30 @@
 package epam.beans;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
-public class Event implements Serializable {
+import java.io.Serializable;
+
+public class Event implements Serializable, Comparable<Event> {
 
     private String name;
-    private String price;
-    private Date date;
+    private int price;
+    private LocalDateTime date;
 
     public Event() {
 
     }
 
-    public Date getDate() {
+    public Event(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -29,16 +36,24 @@ public class Event implements Serializable {
         this.name = name;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
+    @Override
     public String toString() {
-        return "name: " + this.name + ", " + " price: " + this.price;
+        return "name: " + this.name + ", " + " price: " + this.price + ", " + "date: " + this.date;
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        if (this.getPrice() < o.getPrice()) return -1;
+        if (this.getPrice() > o.getPrice()) return 1;
+        return 0;
     }
 
 }
