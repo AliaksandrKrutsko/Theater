@@ -33,6 +33,7 @@
                 <entry key="ENTER_EVENT" value-ref="enterEvent"/>
                 <entry key="GET_EVENT" value-ref="getEvent"/>
                 <entry key="GET_EVENT_BY_NAME" value-ref="getEventByName"/>
+                <entry key="GET_ALL_EVENTS" value-ref="getAllEvents"/>
             </map>
         </constructor-arg>
     </bean>

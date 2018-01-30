@@ -11,4 +11,6 @@ public interface EventService {
 
     String getEventByName(String eventName) throws ServiceException;
 
+    String getAllEvents() throws ServiceException;
+
 }

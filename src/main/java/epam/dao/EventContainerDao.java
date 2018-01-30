@@ -50,6 +50,11 @@ public class EventContainerDao implements EventDao {
         return currentEvent;
     }
 
+    @Override
+    public String getAllEvents() {
+        return events.toString();
+    }
+
     public Map getEventBase() {
         System.out.println("Events: " + eventBase);
         return eventBase;

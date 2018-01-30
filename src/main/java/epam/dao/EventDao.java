@@ -11,4 +11,6 @@ public interface EventDao {
 
     String getEventByName(String eventName);
 
+    String getAllEvents();
+
 }

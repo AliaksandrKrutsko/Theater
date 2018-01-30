@@ -8,20 +8,18 @@ import org.joda.time.LocalDate;
 
 public class EventServiceImpl implements EventService {
 
+    @Override
     public String enterEvent(Event event) throws ServiceException {
-
         DaoFactory daoObjectFactory  = DaoFactory.getInstance();
         EventDao eventDao = daoObjectFactory.getEventDao();
         return eventDao.enterEvent(event);
-
     }
 
+    @Override
     public String getEvent(String key) throws ServiceException {
-
         DaoFactory daoObjectFactory  = DaoFactory.getInstance();
         EventDao eventDao = daoObjectFactory.getEventDao();
         return eventDao.getEvent(key);
-
     }
 
     @Override
@@ -29,6 +27,13 @@ public class EventServiceImpl implements EventService {
         DaoFactory daoObjectFactory = DaoFactory.getInstance();
         EventDao eventDao = daoObjectFactory.getEventDao();
         return eventDao.getEventByName(eventName);
+    }
+
+    @Override
+    public String getAllEvents() throws ServiceException {
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        EventDao eventDao = daoFactory.getEventDao();
+        return eventDao.getAllEvents();
     }
 
 }

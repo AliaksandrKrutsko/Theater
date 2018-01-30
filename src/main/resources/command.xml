@@ -8,5 +8,6 @@
     <bean id="enterEvent" class="epam.command.EnterEvent"/>
     <bean id="getEvent" class="epam.command.GetEvent"/>
     <bean id="getEventByName" class="epam.command.GetEventByName"/>
+    <bean id="getAllEvents" class="epam.command.GetAllEvents"/>
 
 </beans>

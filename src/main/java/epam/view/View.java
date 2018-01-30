@@ -2,10 +2,12 @@ package epam.view;
 
 import epam.beans.Action;
 import epam.beans.Event;
+import epam.command.Command;
 import epam.command.CommandType;
 import org.joda.time.Days;
 import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -50,6 +52,9 @@ public class View {
             event.setName(scanner.nextLine());
             action.setEvent(event);
 
+        } else if (command.equals(CommandType.GET_ALL_EVENTS.get())) {
+
+
         } else throw new IOException("No such command");
 
         return action;
@@ -70,11 +75,11 @@ public class View {
 //        System.out.println(name + " " + price);
     }
 
-    public void getDates(LocalDate startDate, LocalDate endDate) {
+    public void getDates(LocalDateTime startDate, LocalDateTime endDate) {
         int days = Days.daysBetween(startDate, endDate).getDays();
-        List<LocalDate> dates = new ArrayList<LocalDate>(days);
+        List<LocalDateTime> dates = new ArrayList<>(days);
         for (int i=0; i < days; i++) {
-            LocalDate d = startDate.withFieldAdded(DurationFieldType.days(), i);
+            LocalDateTime d = startDate.withFieldAdded(DurationFieldType.days(), i);
             dates.add(d);
         }
     }

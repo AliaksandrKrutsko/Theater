@@ -22,7 +22,6 @@ public class GetEventByName implements Command {
             e.printStackTrace();
         }
         System.out.println(response);
-
         return response;
     }
 
