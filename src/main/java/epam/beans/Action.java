@@ -1,51 +1,19 @@
 package epam.beans;
 
-import epam.command.Command;
 import epam.command.CommandType;
 
-import java.io.Serializable;
+public interface Action {
 
-public class Action implements Serializable {
+    String getSearch();
 
-    private Event event;
-    private CommandType command;
-    private String search;
-    private int numberSearch;
+    void setSearch(String search);
 
-    public Action() {
+    CommandType getCommand();
 
-    }
+    void setCommand(CommandType command);
 
-    public String getSearch() {
-        return search;
-    }
+    Event getEvent();
 
-    public void setSearch(String search) {
-        this.search = search;
-    }
-
-    public int getNumberSearch() {
-        return numberSearch;
-    }
-
-    public void setNumberSearch(int numberSearch) {
-        this.numberSearch = numberSearch;
-    }
-
-    public CommandType getCommand() {
-        return command;
-    }
-
-    public void setCommand(CommandType command) {
-        this.command = command;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
+    void setEvent(Event event);
 
 }

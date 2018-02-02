@@ -22,17 +22,41 @@ public class EventContainerDao implements EventDao {
     Map<Integer, Event> events = new HashMap<Integer, Event>() {{
         put(1, new Event("Event", 12, LocalDateTime.parse("08-08-12 11.00", dateTimeFormat)));
         put(2, new Event("Another event", 15, LocalDateTime.parse("08-08-12 10.00", dateTimeFormat)));
+        put(3, new Event("Some movie", 20, LocalDateTime.parse("08-08-14 08.00", dateTimeFormat)));
     }};
 
 
-    public String enterEvent(Event event) {
-        return null;
+    public String enterEvent(Event event) throws DaoException {
+        Set<Integer> set = events.keySet();
+        int key = 0;
+        key = iterate(key, set);
+        try {
+
+            events.put(key, event);
+        } catch (InputMismatchException e) {
+            throw new DaoException("Something went wrong", e);
+        }
+        return events.get(key).toString();
+    }
+
+    private int iterate(int key, Set set) {
+        int i;
+        for (i = 1; i <= set.size(); i++) {
+            if (i==set.size()) {
+                break;
+            }
+        }
+        key = i + 1;
+        return key;
     }
 
     public String getEvent(String key) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         EventContainerDao eventContainerDao = (EventContainerDao) context.getBean("eventContainerDao");
         String value = eventContainerDao.eventBase.get(key);
+        if (value==null) {
+            value = "There is no such event";
+        }
         return value;
     }
 
@@ -44,7 +68,7 @@ public class EventContainerDao implements EventDao {
                 currentEvent = event.toString();
             }
         }
-        if (currentEvent==null) {
+        if (currentEvent == null) {
             currentEvent = "There is no such event";
         }
         return currentEvent;

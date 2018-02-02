@@ -38,39 +38,35 @@
         </constructor-arg>
     </bean>
 
-    <bean id="action" class="epam.beans.Action">
-        <property name="event" ref="event"/>
+    <bean id="action" class="epam.beans.Action" abstract="true">
     </bean>
+
+    <bean id="moderatorAction" class="epam.beans.ModeratorAction" parent="action"/>
+
+    <bean id="userAction" class="epam.beans.UserAction" parent="action" init-method="init"/>
+
+    <bean id="user" class="epam.beans.User"/>
 
     <bean id="view" class="epam.view.View"/>
 
-    <bean id="event" class="epam.beans.Event">
-        <!--<property name="name" value="${name}"/>-->
-        <!--<property name="price" value="${price}"/>-->
+    <bean id="event" class="epam.beans.Event" scope="prototype">
         <constructor-arg index="0" value="${name}"/>
         <constructor-arg index="1" value="${price}"/>
+        <!--<property name="airDates" ref="airDates"/>-->
     </bean>
 
-    <bean id="dateEditor"
-          class="org.springframework.beans.propertyeditors.CustomDateEditor">
-        <constructor-arg>
-            <bean class="java.text.SimpleDateFormat">
-                <constructor-arg value="yyyy-MM-dd"/>
-            </bean>
-        </constructor-arg>
-        <constructor-arg value="true"/>
-
-    </bean>
-
-    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
-        <!--<property name="customEditors">-->
-            <!--<map>-->
-                <!--<entry key="org.joda.time.LocalDate">-->
-                    <!--<ref local="dateEditor"/>-->
-                <!--</entry>-->
-            <!--</map>-->
-        <!--</property>-->
+    <!--<bean id="dateFormat" class="org.springframework.format.datetime.joda.DateTimeFormatterFactory">-->
+        <!--<constructor-arg value="yyyy-MM-dd"/>-->
     <!--</bean>-->
+
+    <!--<util:set id="airDates" set-class="java.util.TreeSet">-->
+        <!--<bean factory-bean="dateFormat" factory-method="createDateTimeFormatter">-->
+            <!--<constructor-arg value="08-08-12"/>-->
+        <!--</bean>-->
+        <!--<bean factory-bean="dateFormat" factory-method="createDateTimeFormatter">-->
+            <!--<constructor-arg value="08-08-14"/>-->
+        <!--</bean>-->
+    <!--</util:set>-->
 
     <util:map id="AdditionalParams" scope="prototype" map-class="java.util.HashMap"
               key-type="java.lang.String" value-type="java.lang.String">

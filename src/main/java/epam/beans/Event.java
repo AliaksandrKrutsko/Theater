@@ -3,10 +3,7 @@ package epam.beans;
 import org.joda.time.Days;
 import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDateTime;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
@@ -56,6 +53,14 @@ public class Event implements Serializable, Comparable<Event> {
         this.price = price;
     }
 
+    public NavigableSet<LocalDateTime> getAirDates() {
+        return airDates;
+    }
+
+    public void setAirDates(NavigableSet<LocalDateTime> airDates) {
+        this.airDates = airDates;
+    }
+
     @Override
     public String toString() {
         return "name: " + this.name + ", " + " price: " + this.price + ", " + "date: " + this.date;
@@ -74,6 +79,10 @@ public class Event implements Serializable, Comparable<Event> {
             LocalDateTime d = startDate.withFieldAdded(DurationFieldType.days(), i);
             airDates.add(d);
         }
+    }
+
+    public void getDateNextTo(LocalDateTime date) {
+        airDates.higher(date);
     }
 
 }

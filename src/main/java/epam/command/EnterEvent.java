@@ -20,9 +20,9 @@ public class EnterEvent implements Command {
         try {
            response = eventService.enterEvent(action.getEvent());
         } catch (ServiceException e) {
-            e.printStackTrace();
+            e.getLocalizedMessage();
         }
-        System.out.println(response);
+        System.out.println(response + " was added");
         return response;
 
     }

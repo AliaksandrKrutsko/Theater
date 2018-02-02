@@ -2,6 +2,7 @@ package epam.service;
 
 import com.sun.istack.internal.Nullable;
 import epam.beans.Event;
+import epam.dao.DaoException;
 import epam.dao.DaoFactory;
 import epam.dao.EventDao;
 import org.joda.time.LocalDate;
@@ -10,9 +11,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public String enterEvent(Event event) throws ServiceException {
-        DaoFactory daoObjectFactory  = DaoFactory.getInstance();
-        EventDao eventDao = daoObjectFactory.getEventDao();
-        return eventDao.enterEvent(event);
+        try {
+            DaoFactory daoObjectFactory = DaoFactory.getInstance();
+            EventDao eventDao = daoObjectFactory.getEventDao();
+            return eventDao.enterEvent(event);
+        }
+        catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
