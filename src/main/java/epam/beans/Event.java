@@ -3,16 +3,19 @@ package epam.beans;
 import org.joda.time.Days;
 import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDateTime;
+import org.springframework.context.annotation.Configuration;
+
 import java.io.Serializable;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
+@Configuration
 public class Event implements Serializable, Comparable<Event> {
 
     private String name;
     private int price;
     private LocalDateTime date;
-    private NavigableSet<LocalDateTime> airDates = new TreeSet<>();
+    private NavigableSet<LocalDateTime> airDates = new TreeSet<LocalDateTime>();
 
     public Event() {
 

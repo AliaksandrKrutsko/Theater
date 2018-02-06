@@ -1,6 +1,6 @@
 package epam.command;
 
-import epam.beans.Action;
+import epam.actions.Action;
 
 public interface Command {
 

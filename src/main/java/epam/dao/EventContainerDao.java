@@ -18,13 +18,13 @@ public class EventContainerDao implements EventDao {
     String pattern = "yy-MM-dd hh.mm";
     Map<String, String> eventBase;
     DateTimeFormatter dateTimeFormat = DateTimeFormat.forPattern(pattern);
+    private Event event;
 
     Map<Integer, Event> events = new HashMap<Integer, Event>() {{
         put(1, new Event("Event", 12, LocalDateTime.parse("08-08-12 11.00", dateTimeFormat)));
         put(2, new Event("Another event", 15, LocalDateTime.parse("08-08-12 10.00", dateTimeFormat)));
         put(3, new Event("Some movie", 20, LocalDateTime.parse("08-08-14 08.00", dateTimeFormat)));
     }};
-
 
     public String enterEvent(Event event) throws DaoException {
         Set<Integer> set = events.keySet();

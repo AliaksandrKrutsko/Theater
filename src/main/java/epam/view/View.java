@@ -1,13 +1,10 @@
 package epam.view;
 
-import epam.beans.Action;
+import epam.actions.Action;
 import epam.beans.Event;
-import epam.beans.ModeratorAction;
-import epam.command.Command;
 import epam.command.CommandType;
 import org.joda.time.Days;
 import org.joda.time.DurationFieldType;
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

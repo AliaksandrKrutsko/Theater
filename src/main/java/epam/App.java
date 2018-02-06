@@ -1,7 +1,6 @@
 package epam;
 
-import epam.beans.Action;
-import epam.beans.ModeratorAction;
+import epam.actions.Action;
 import epam.command.Command;
 import epam.command.CommandType;
 import epam.view.View;

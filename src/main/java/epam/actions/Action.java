@@ -1,5 +1,6 @@
-package epam.beans;
+package epam.actions;
 
+import epam.beans.Event;
 import epam.command.CommandType;
 
 public interface Action {

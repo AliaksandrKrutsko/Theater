@@ -1,10 +1,9 @@
 package epam.command;
 
-import epam.beans.Action;
+import epam.actions.Action;
 import epam.service.EventService;
 import epam.service.ServiceException;
 import epam.service.ServiceFactory;
-import org.joda.time.LocalDate;
 
 public class GetEvent implements Command {
 

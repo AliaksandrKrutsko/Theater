@@ -1,10 +1,11 @@
-package epam.beans;
+package epam.actions;
 
+import epam.beans.Event;
 import epam.command.CommandType;
 
 import java.io.Serializable;
 
-public class UserAction implements Serializable, Action {
+public class UserAction implements Action {
 
     private Event event;
     private CommandType command;

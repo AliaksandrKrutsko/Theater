@@ -11,19 +11,6 @@
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="locations">-->
-            <!--<list>-->
-                <!--<value>classpath:event.properties</value>-->
-            <!--</list>-->
-        <!--</property>-->
-        <!--<property name="ignoreResourceNotFound" value="true"/>-->
-        <!--<property name="systemPropertiesMode">-->
-            <!--<util:constant-->
-                    <!--static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE"/>-->
-        <!--</property>-->
-    <!--</bean>-->
-
     <context:annotation-config/>
     <context:property-placeholder location="event.properties"/>
 
@@ -38,12 +25,12 @@
         </constructor-arg>
     </bean>
 
-    <bean id="action" class="epam.beans.Action" abstract="true">
+    <bean id="action" class="epam.actions.Action" abstract="true">
     </bean>
 
-    <bean id="moderatorAction" class="epam.beans.ModeratorAction" parent="action"/>
+    <bean id="moderatorAction" class="epam.actions.ModeratorAction" parent="action"/>
 
-    <bean id="userAction" class="epam.beans.UserAction" parent="action" init-method="init"/>
+    <bean id="userAction" class="epam.actions.UserAction" parent="action" init-method="init"/>
 
     <bean id="user" class="epam.beans.User"/>
 
@@ -68,11 +55,11 @@
         <!--</bean>-->
     <!--</util:set>-->
 
-    <util:map id="AdditionalParams" scope="prototype" map-class="java.util.HashMap"
-              key-type="java.lang.String" value-type="java.lang.String">
-        <entry key="a" value="Now"/>
-        <entry key="b" value="Then"/>
-    </util:map>
+    <util:set id="airDates" set-class="java.util.TreeSet" value-type="java.lang.String">
+        <value>"03-02-01"</value>
+        <value>"02-01-01</value>
+        <value>"03-01-02"</value>
+    </util:set>
 
     <bean id="eventContainerDao" class="epam.dao.EventContainerDao">
         <property name="eventBase">

@@ -1,6 +1,6 @@
 package epam.command;
 
-import epam.beans.Action;
+import epam.actions.Action;
 import epam.service.EventService;
 import epam.service.ServiceException;
 import epam.service.ServiceFactory;
