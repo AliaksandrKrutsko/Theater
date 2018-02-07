@@ -3,6 +3,7 @@ package epam;
 import epam.actions.Action;
 import epam.command.Command;
 import epam.command.CommandType;
+import epam.helper.ContextCreator;
 import epam.view.View;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

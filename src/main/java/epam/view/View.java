@@ -3,6 +3,7 @@ package epam.view;
 import epam.actions.Action;
 import epam.beans.Event;
 import epam.command.CommandType;
+import epam.helper.ContextCreator;
 import org.joda.time.Days;
 import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDateTime;
@@ -38,20 +39,18 @@ public class View {
     public Action enterCommand() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         Action action = null;
         System.out.println("who are you?");
         String status = scanner.nextLine();
         if (status.equals(Status.MODERATOR.get())) {
-            action = (Action) context.getBean("moderatorAction");
+            action = (Action) ContextCreator.getApplicationContext().getBean("moderatorAction");
         } else if (status.equals(Status.USER.get())) {
-            action = (Action) context.getBean("userAction");
+            action = (Action) ContextCreator.getApplicationContext().getBean("userAction");
         } else {
             System.out.println("System doesn't recognize you");
             System.exit(1);
         }
-        Event event = (Event) context.getBean("event");
-
+        Event event = (Event) ContextCreator.getApplicationContext().getBean("event");
         System.out.println("please, enter command");
         String command = scanner.nextLine();
         action.setCommand(CommandType.valueOf(command.toUpperCase()));

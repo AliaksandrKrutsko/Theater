@@ -1,6 +1,7 @@
 package epam.dao;
 
 import epam.beans.Event;
+import epam.helper.ContextCreator;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -51,8 +52,7 @@ public class EventContainerDao implements EventDao {
     }
 
     public String getEvent(String key) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-        EventContainerDao eventContainerDao = (EventContainerDao) context.getBean("eventContainerDao");
+        EventContainerDao eventContainerDao = (EventContainerDao) ContextCreator.getApplicationContext().getBean("eventContainerDao");
         String value = eventContainerDao.eventBase.get(key);
         if (value==null) {
             value = "There is no such event";
