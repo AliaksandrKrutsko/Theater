@@ -48,27 +48,13 @@ public class View {
         System.out.println("who are you?");
         String status = scanner.nextLine();
         if (status.equals(Status.MODERATOR.get())) {
-            System.out.println("please, enter login");
-            String login = scanner.nextLine();
-            System.out.println("please, enter password");
-            String password = scanner.nextLine();
-            if (moderatorLogin.get(login).equals(password)) {
-                action = (Action) ContextCreator.getApplicationContext().getBean("moderatorAction");
-            } else {
-                System.out.println("Ensure that your email address and password are correct");
-                System.exit(1);
-            }
+
+            action = loginAsModerator();
+
         } else if (status.equals(Status.USER.get())) {
-            System.out.println("please, enter login");
-            String login = scanner.nextLine();
-            System.out.println("please, enter password");
-            String password = scanner.nextLine();
-            if (user.getLoginData().get(login).equals(password)) {
-                action = (Action) ContextCreator.getApplicationContext().getBean("userAction");
-            } else {
-                System.out.println("Ensure that your email address and password are correct");
-                System.exit(1);
-            }
+
+            action = loginAsUser();
+
         } else {
             System.out.println("System doesn't recognize you");
             System.exit(1);
@@ -126,6 +112,36 @@ public class View {
         System.out.println("please, enter the key");
         action.setSearch(scanner.nextLine());
         scanner.close();
+    }
+
+    private Action loginAsModerator() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("please, enter login");
+        String login = scanner.nextLine();
+        System.out.println("please, enter password");
+        String password = scanner.nextLine();
+        scanner.close();
+        if (moderatorLogin.get(login).equals(password)) {
+            return action = (Action) ContextCreator.getApplicationContext().getBean("moderatorAction");
+        } else
+            System.out.println("Ensure that your email address and password are correct");
+            System.exit(1);
+            return null;
+    }
+
+    private Action loginAsUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("please, enter login");
+        String login = scanner.nextLine();
+        System.out.println("please, enter password");
+        String password = scanner.nextLine();
+        scanner.close();
+        if (user.getLoginData().get(login).equals(password)) {
+            return action = (Action) ContextCreator.getApplicationContext().getBean("userAction");
+        } else
+            System.out.println("Ensure that your email address and password are correct");
+            System.exit(1);
+            return null;
     }
 
     private void enterEventInProperties(String newName, int newPrice) throws IOException {
