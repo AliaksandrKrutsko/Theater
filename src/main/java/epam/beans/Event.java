@@ -3,19 +3,13 @@ package epam.beans;
 import org.joda.time.Days;
 import org.joda.time.DurationFieldType;
 import org.joda.time.LocalDateTime;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
-@Configuration
-public class Event implements Serializable, Comparable<Event>, ApplicationContextAware {
+public class Event implements Serializable, Comparable<Event> {
 
-    ApplicationContext applicationContext;
     private String name;
     private int price;
     private LocalDateTime date;
@@ -66,15 +60,6 @@ public class Event implements Serializable, Comparable<Event>, ApplicationContex
 
     public void setAirDates(NavigableSet<LocalDateTime> airDates) {
         this.airDates = airDates;
-    }
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 
     @Override

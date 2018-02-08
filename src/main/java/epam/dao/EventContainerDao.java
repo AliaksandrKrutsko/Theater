@@ -1,5 +1,6 @@
 package epam.dao;
 
+import epam.actions.Action;
 import epam.beans.Event;
 import epam.helper.ContextCreator;
 import org.joda.time.LocalDate;
@@ -28,16 +29,16 @@ public class EventContainerDao implements EventDao {
     }};
 
     public String enterEvent(Event event) throws DaoException {
-        Set<Integer> set = events.keySet();
-        int key = 0;
-        key = iterate(key, set);
-        try {
+            Set<Integer> set = events.keySet();
+            int key = 0;
+            key = iterate(key, set);
+            try {
 
-            events.put(key, event);
-        } catch (InputMismatchException e) {
-            throw new DaoException("Something went wrong", e);
-        }
-        return events.get(key).toString();
+                events.put(key, event);
+            } catch (Exception e) {
+                throw new DaoException("Something went wrong", e);
+            }
+            return events.get(key).toString();
     }
 
     private int iterate(int key, Set set) {

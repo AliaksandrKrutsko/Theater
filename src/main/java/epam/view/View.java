@@ -2,21 +2,26 @@ package epam.view;
 
 import epam.actions.Action;
 import epam.beans.Event;
+import epam.beans.User;
 import epam.command.CommandType;
 import epam.helper.ContextCreator;
-import org.joda.time.Days;
-import org.joda.time.DurationFieldType;
-import org.joda.time.LocalDateTime;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
 
+@Configuration
+@PropertySource("login.properties")
 public class View {
+
+    @Value("#{${moderator}}")
+    Map<String, String> moderatorLogin;
+
+    private User user;
+    private Event event;
+    private Action action;
 
     public enum Status {
 
@@ -25,7 +30,7 @@ public class View {
 
         private String myStatus;
 
-        Status (String status) {
+        Status(String status) {
             myStatus = status;
         }
 
@@ -39,52 +44,91 @@ public class View {
     public Action enterCommand() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        Action action = null;
+        action = null;
         System.out.println("who are you?");
         String status = scanner.nextLine();
         if (status.equals(Status.MODERATOR.get())) {
-            action = (Action) ContextCreator.getApplicationContext().getBean("moderatorAction");
+            System.out.println("please, enter login");
+            String login = scanner.nextLine();
+            System.out.println("please, enter password");
+            String password = scanner.nextLine();
+            if (moderatorLogin.get(login).equals(password)) {
+                action = (Action) ContextCreator.getApplicationContext().getBean("moderatorAction");
+            } else {
+                System.out.println("Ensure that your email address and password are correct");
+                System.exit(1);
+            }
         } else if (status.equals(Status.USER.get())) {
-            action = (Action) ContextCreator.getApplicationContext().getBean("userAction");
+            System.out.println("please, enter login");
+            String login = scanner.nextLine();
+            System.out.println("please, enter password");
+            String password = scanner.nextLine();
+            if (user.getLoginData().get(login).equals(password)) {
+                action = (Action) ContextCreator.getApplicationContext().getBean("userAction");
+            } else {
+                System.out.println("Ensure that your email address and password are correct");
+                System.exit(1);
+            }
         } else {
             System.out.println("System doesn't recognize you");
             System.exit(1);
         }
-        Event event = (Event) ContextCreator.getApplicationContext().getBean("event");
+        event = (Event) ContextCreator.getApplicationContext().getBean("event");
         System.out.println("please, enter command");
         String command = scanner.nextLine();
         action.setCommand(CommandType.valueOf(command.toUpperCase()));
 
         if (command.equals(CommandType.ENTER_EVENT.get())) {
 
-            System.out.println("please, enter event name");
-            event.setName(scanner.nextLine());
-            System.out.println("please, enter event price");
-            event.setPrice(scanner.nextInt());
-            action.setEvent(event);
-//            enterEvent(event.getName(), event.getPrice());
+            enterEvent();
 
         } else if (command.equals(CommandType.GET_EVENT.get())) {
 
-            System.out.println("please, enter the key");
-            action.setSearch(scanner.nextLine());
+            getEvent();
 
         } else if (command.equals(CommandType.GET_EVENT_BY_NAME.get())) {
 
-            System.out.println("please, enter event name");
-            event.setName(scanner.nextLine());
-            action.setEvent(event);
+            getEventByName();
 
         } else if (command.equals(CommandType.GET_ALL_EVENTS.get())) {
 
 
         } else throw new IOException("No such command");
 
+        if (scanner != null)
+            scanner.close();
+
         return action;
 
     }
 
-    private void enterEvent(String newName, int newPrice) throws IOException {
+    private void getEventByName() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("please, enter event name");
+        event.setName(scanner.nextLine());
+        action.setEvent(event);
+        scanner.close();
+    }
+
+    private void enterEvent() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("please, enter event name");
+        event.setName(scanner.nextLine());
+        System.out.println("please, enter event price");
+        event.setPrice(scanner.nextInt());
+        action.setEvent(event);
+//        enterEventInProperties(event.getName(), event.getPrice());
+        scanner.close();
+    }
+
+    private void getEvent() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("please, enter the key");
+        action.setSearch(scanner.nextLine());
+        scanner.close();
+    }
+
+    private void enterEventInProperties(String newName, int newPrice) throws IOException {
         Properties prop = new Properties();
         prop.load(in);
         String name = prop.getProperty("name");
@@ -95,16 +139,6 @@ public class View {
         prop.setProperty(price, String.valueOf(newPrice));
         prop.store(out, null);
         out.close();
-//        System.out.println(name + " " + price);
-    }
-
-    public void getDates(LocalDateTime startDate, LocalDateTime endDate) {
-        int days = Days.daysBetween(startDate, endDate).getDays();
-        List<LocalDateTime> dates = new ArrayList<>(days);
-        for (int i = 0; i < days; i++) {
-            LocalDateTime d = startDate.withFieldAdded(DurationFieldType.days(), i);
-            dates.add(d);
-        }
     }
 
 }

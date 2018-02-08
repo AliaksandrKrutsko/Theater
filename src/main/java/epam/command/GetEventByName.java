@@ -21,7 +21,6 @@ public class GetEventByName implements Command {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        System.out.println(response);
         return response;
     }
 

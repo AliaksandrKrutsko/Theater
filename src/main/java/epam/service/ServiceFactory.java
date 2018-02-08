@@ -16,6 +16,4 @@ public class ServiceFactory {
         return eventService;
     }
 
-
-
 }

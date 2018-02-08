@@ -3,7 +3,6 @@ package epam;
 import epam.actions.Action;
 import epam.command.Command;
 import epam.command.CommandType;
-import epam.helper.ContextCreator;
 import epam.view.View;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,9 +19,9 @@ public class App {
         this.commands = commands;
     }
 
-    public void executeCommand(CommandType type, Action action) {
+    public String executeCommand(CommandType type, Action action) {
         Command command = commands.get(type);
-        command.execute(action);
+        return command.execute(action);
     }
 
     public static void main(String[] args) throws IOException {
@@ -30,7 +29,8 @@ public class App {
         App app = (App) context.getBean("app");
         View view = (View) context.getBean("view");
         Action action = view.enterCommand();
-        app.executeCommand(action.getCommand(), action);
+        String response = app.executeCommand(action.getCommand(), action);
+        System.out.println(response);
     }
 
 }
