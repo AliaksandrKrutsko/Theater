@@ -1,26 +1,25 @@
 package epam.actions;
 
 import epam.beans.Event;
+import epam.beans.Ticket;
+import epam.beans.User;
 import epam.command.CommandType;
 
-import java.io.Serializable;
-
-public class ModeratorAction implements Action {
+public class ModeratorAction<T extends Object> implements Action {
 
     private Event event;
     private CommandType command;
-    private String search;
+    private T search;
+    private User user;
+    private Ticket ticket;
 
-    public ModeratorAction() {
-
-    }
-
-    public String getSearch() {
+    public T getSearch() {
         return search;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
+    @Override
+    public void setSearch(Object search) {
+        this.search = (T) search;
     }
 
     public CommandType getCommand() {
@@ -39,8 +38,26 @@ public class ModeratorAction implements Action {
         this.event = event;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    @Override
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
     public void init() {
-        System.out.println("Action bean is initialized");
+        System.out.println("You have logged in as a moderator");
     }
 
 }

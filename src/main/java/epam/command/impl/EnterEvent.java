@@ -1,6 +1,7 @@
-package epam.command;
+package epam.command.impl;
 
 import epam.actions.Action;
+import epam.command.Command;
 import epam.helper.ContextCreator;
 import epam.service.EventService;
 import epam.service.ServiceException;
@@ -12,6 +13,8 @@ import java.util.logging.Level;
 public class EnterEvent implements Command {
 
     private static Logger log = Logger.getLogger(EnterEvent.class.getName());
+
+    /**Message for trying to execute this command without moderator rights*/
     private static final String ERROR_MESSAGE = "You're not allowed to do this";
 
     private String response;

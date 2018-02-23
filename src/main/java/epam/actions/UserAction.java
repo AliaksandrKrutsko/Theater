@@ -1,26 +1,24 @@
 package epam.actions;
 
 import epam.beans.Event;
+import epam.beans.Ticket;
+import epam.beans.User;
 import epam.command.CommandType;
 
-import java.io.Serializable;
-
-public class UserAction implements Action {
+public class UserAction<T> implements Action {
 
     private Event event;
     private CommandType command;
-    private String search;
+    private T search;
+    private Ticket ticket;
 
-    public UserAction() {
-
-    }
-
-    public String getSearch() {
+    public T getSearch() {
         return search;
     }
 
-    public void setSearch(String search) {
-        this.search = search;
+    @Override
+    public void setSearch(Object search) {
+        this.search = (T) search;
     }
 
     public CommandType getCommand() {
@@ -39,8 +37,28 @@ public class UserAction implements Action {
         this.event = event;
     }
 
-    public void init() {
+    @Override
+    public User getUser() {
+        return null;
+    }
 
+    @Override
+    public void setUser(User user) {
+
+    }
+
+    @Override
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    @Override
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public void init() {
+        System.out.println("You have logged in as a user");
     }
 
 }

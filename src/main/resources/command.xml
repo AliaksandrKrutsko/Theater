@@ -3,11 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
- 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+ 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="enterEvent" class="epam.command.EnterEvent"/>
-    <bean id="getEvent" class="epam.command.GetEvent"/>
-    <bean id="getEventByName" class="epam.command.GetEventByName"/>
-    <bean id="getAllEvents" class="epam.command.GetAllEvents"/>
+    <bean id="enterEvent" class="epam.command.impl.EnterEvent"/>
+    <bean id="getEvent" class="epam.command.impl.GetEvent"/>
+    <bean id="getEventByName" class="epam.command.impl.GetEventByName"/>
+    <bean id="getAllEvents" class="epam.command.impl.GetAllEvents"/>
+    <bean id="getUserByEmail" class="epam.command.impl.GetUserByEmail"/>
+    <bean id="getTicketsPrice" class="epam.command.impl.GetTicketsPrice"/>
+    <bean id="removeEventByName" class="epam.command.impl.RemoveEventByName"/>
 
 </beans>

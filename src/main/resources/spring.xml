@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans.xsd
  		http://www.springframework.org/schema/context
- 		http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/util
-        http://www.springframework.org/schema/util/spring-util.xsd">
+ 		http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
-    <context:property-placeholder location="event.properties"/>
-    <context:property-placeholder location="login.properties"/>
+    <context:property-placeholder location="config.properties"/>
 
     <bean id="creator" class="epam.helper.ContextCreator"/>
 
@@ -24,6 +20,8 @@
                 <entry key="GET_EVENT" value-ref="getEvent"/>
                 <entry key="GET_EVENT_BY_NAME" value-ref="getEventByName"/>
                 <entry key="GET_ALL_EVENTS" value-ref="getAllEvents"/>
+                <entry key="GET_USER_BY_EMAIL" value-ref="getUserByEmail"/>
+                <entry key="REMOVE_EVENT_BY_NAME" value-ref="removeEventByName"/>
             </map>
         </constructor-arg>
     </bean>
@@ -31,52 +29,29 @@
     <bean id="action" class="epam.actions.Action" abstract="true">
     </bean>
 
-    <bean id="moderatorAction" class="epam.actions.ModeratorAction" parent="action"/>
+    <bean id="moderatorAction" class="epam.actions.ModeratorAction" parent="action" init-method="init" lazy-init="true"/>
 
-    <bean id="userAction" class="epam.actions.UserAction" parent="action" init-method="init"/>
+    <bean id="userAction" class="epam.actions.UserAction" parent="action" init-method="init" lazy-init="true"/>
 
     <bean id="user" class="epam.beans.User"/>
 
+    <bean id="moderator" class="epam.beans.Moderator"/>
+
     <bean id="view" class="epam.view.View"/>
 
-    <bean id="event" class="epam.beans.Event" scope="prototype">
-        <constructor-arg index="0" value="${name}"/>
-        <constructor-arg index="1" value="${price}"/>
-        <!--<property name="airDates" ref="airDates"/>-->
-    </bean>
-
-    <!--<bean id="dateFormat" class="org.springframework.format.datetime.joda.DateTimeFormatterFactory">-->
-        <!--<constructor-arg value="yyyy-MM-dd"/>-->
-    <!--</bean>-->
-
-    <!--<util:set id="airDates" set-class="java.util.TreeSet">-->
-        <!--<bean factory-bean="dateFormat" factory-method="createDateTimeFormatter">-->
-            <!--<constructor-arg value="08-08-12"/>-->
-        <!--</bean>-->
-        <!--<bean factory-bean="dateFormat" factory-method="createDateTimeFormatter">-->
-            <!--<constructor-arg value="08-08-14"/>-->
-        <!--</bean>-->
-    <!--</util:set>-->
-
-    <util:set id="airDates" set-class="java.util.TreeSet" value-type="java.lang.String">
-        <value>"03-02-01"</value>
-        <value>"02-01-01</value>
-        <value>"03-01-02"</value>
-    </util:set>
-
-    <bean id="eventContainerDao" class="epam.dao.EventContainerDao">
-        <property name="eventBase">
-            <map key-type="java.lang.String" value-type="java.lang.String">
-                <entry key="a" value="this"/>
-                <entry key="b" value="that"/>
-                <entry key="c" value="and the others"/>
-            </map>
-        </property>
-    </bean>
+    <bean id="event" class="epam.beans.Event" scope="prototype"/>
 
     <import resource="command.xml"/>
 
-    <!--xmlns:util="http://www.springframework.org/schema/util"-->
-    <!--http://www.springframework.org/schema/util-->
-    <!--http://www.springframework.org/schema/util/spring-util-3.2.xsd"-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbcDriver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${jdbcUserName}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
 </beans>
