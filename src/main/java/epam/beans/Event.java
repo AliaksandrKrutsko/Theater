@@ -89,25 +89,4 @@ public class Event implements Serializable, Comparable<Event> {
         return result;
     }
 
-    /**
-     * Method to get all the dates between two specified ones
-     * @param startDate
-     * @param endDate
-     */
-//    public void getDates(LocalDateTime startDate, LocalDateTime endDate) {
-//        int days = Days.daysBetween(startDate, endDate).getDays();
-//        for (int i = 0; i < days; i++) {
-//            LocalDateTime d = startDate.withFieldAdded(DurationFieldType.days(), i);
-//            airDates.add(d);
-//        }
-//    }
-
-    /**
-     * Method to get the date next to the specified one
-     * @param date
-     */
-//    public void getDateNextTo(LocalDateTime date) {
-//        airDates.higher(date);
-//    }
-
 }

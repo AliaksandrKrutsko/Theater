@@ -1,9 +1,11 @@
 package epam.service.impl;
 
 import epam.beans.Event;
+import epam.beans.Ticket;
 import epam.beans.User;
 import epam.dao.DaoFactory;
 import epam.dao.EventDao;
+import epam.dao.UserDao;
 import epam.service.BookingService;
 import epam.service.ServiceException;
 import org.joda.time.LocalDateTime;
@@ -17,6 +19,12 @@ public class BookingServiceImpl implements BookingService {
         DaoFactory daoFactory = DaoFactory.getInstance();
         EventDao eventDao = daoFactory.getEventDao();
         return eventDao.getTicketsPrice(event, dateTime, user);
+    }
+
+    public Ticket bookTicket(Event event, User user) {
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        UserDao userDao = daoFactory.getUserDao();
+        return userDao.bookTicket(event, user);
     }
 
 }

@@ -1,6 +1,7 @@
 package epam.beans;
 
 import org.joda.time.LocalDateTime;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Objects;

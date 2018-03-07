@@ -22,6 +22,7 @@
                 <entry key="GET_ALL_EVENTS" value-ref="getAllEvents"/>
                 <entry key="GET_USER_BY_EMAIL" value-ref="getUserByEmail"/>
                 <entry key="REMOVE_EVENT_BY_NAME" value-ref="removeEventByName"/>
+                <entry key="BOOK_TICKET" value-ref="bookTicket"/>
             </map>
         </constructor-arg>
     </bean>
@@ -47,11 +48,13 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" destroy-method="close"
+          class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbcDriver}"/>
         <property name="url" value="${url}"/>
         <property name="username" value="${jdbcUserName}"/>
         <property name="password" value="${password}"/>
+        <property name="initialSize" value="3"/>
     </bean>
 
 </beans>

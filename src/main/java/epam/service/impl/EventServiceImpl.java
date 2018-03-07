@@ -9,6 +9,8 @@ import epam.service.EventService;
 import epam.service.ServiceException;
 import org.joda.time.LocalDate;
 
+import java.util.List;
+
 public class EventServiceImpl implements EventService {
 
     @Override
@@ -36,7 +38,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public String getEventByName(String eventName) throws ServiceException {
+    public List<Event> getEventByName(String eventName) throws ServiceException {
         DaoFactory daoObjectFactory = DaoFactory.getInstance();
         EventDao eventDao = daoObjectFactory.getEventDao();
         return eventDao.getEventByName(eventName);

@@ -8,7 +8,8 @@ public enum CommandType {
     GET_ALL_EVENTS("get_all_events"),
     GET_USER_BY_EMAIL("get_user_by_email"),
     GET_TICKETS_PRICE("get_tickets_price"),
-    REMOVE_EVENT_BY_NAME("remove_event_by_name");
+    REMOVE_EVENT_BY_NAME("remove_event_by_name"),
+    BOOK_TICKET("book_ticket");
 
     private String myCommand;
 

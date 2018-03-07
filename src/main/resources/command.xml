@@ -12,5 +12,6 @@
     <bean id="getUserByEmail" class="epam.command.impl.GetUserByEmail"/>
     <bean id="getTicketsPrice" class="epam.command.impl.GetTicketsPrice"/>
     <bean id="removeEventByName" class="epam.command.impl.RemoveEventByName"/>
+    <bean id="bookTicket" class="epam.command.impl.BookTicket"/>
 
 </beans>

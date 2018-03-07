@@ -18,7 +18,7 @@ public class GetEventByName implements Command {
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         EventService eventService = serviceFactory.getEventService();
         try {
-            response = eventService.getEventByName(eventName);
+            response = eventService.getEventByName(eventName).toString();
         } catch (ServiceException e) {
             e.printStackTrace();
         }

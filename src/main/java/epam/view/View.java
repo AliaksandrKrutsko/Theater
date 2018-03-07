@@ -47,6 +47,7 @@ public class View {
 
     /**
      * Method to login and enter command
+     *
      * @throws IOException
      */
     public Action enterCommand() throws IOException {
@@ -76,6 +77,8 @@ public class View {
             String password = scanner.nextLine();
             if (user.getLoginData().get(login).equals(password)) {
                 action = (Action) ContextCreator.getApplicationContext().getBean("userAction");
+                user.setName(login);
+                action.setUser(user);
             } else {
                 System.out.println("Ensure that your email address and password are correct");
                 System.exit(1);
@@ -108,11 +111,15 @@ public class View {
 
             getUserByEmail();
 
-        } else if(command.equalsIgnoreCase(CommandType.GET_TICKETS_PRICE.get())) {
+        } else if (command.equalsIgnoreCase(CommandType.GET_TICKETS_PRICE.get())) {
 
-        } else if(command.equalsIgnoreCase(CommandType.REMOVE_EVENT_BY_NAME.get())) {
+        } else if (command.equalsIgnoreCase(CommandType.REMOVE_EVENT_BY_NAME.get())) {
 
             removeEventByName();
+
+        } else if (command.equalsIgnoreCase(CommandType.BOOK_TICKET.get())) {
+
+            getEventByName();
 
         } else throw new IOException("No such command");
 
@@ -193,6 +200,7 @@ public class View {
 
     /**
      * Method to rewrite property values of a given event
+     *
      * @param newName
      * @param newPrice
      * @throws IOException
