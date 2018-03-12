@@ -123,8 +123,8 @@ public class View {
 
         } else throw new IOException("No such command");
 
-        if (scanner != null)
-            scanner.close();
+//        if (scanner != null)
+//            scanner.close();
 
         return action;
 
@@ -138,7 +138,7 @@ public class View {
         System.out.println("please, enter event name");
         event.setName(scanner.nextLine());
         action.setEvent(event);
-        scanner.close();
+//        scanner.close();
     }
 
     /**

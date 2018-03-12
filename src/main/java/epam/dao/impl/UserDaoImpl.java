@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
     private static final String EVENT_TABLE = "event";
     private static final String TICKET_TABLE = "ticket";
 
-    private User user;
+    private User user = (User) ContextCreator.getApplicationContext().getBean("user");
 
     /**
      * Method to get a certain user by his/her email
@@ -43,9 +43,12 @@ public class UserDaoImpl implements UserDao {
      * @return
      */
     public Ticket bookTicket(Event event, User user) {
+        String SQL_EVENT = "SELECT * FROM " + EVENT_TABLE + " WHERE name = ?";
+        event = jdbcTemplate.queryForObject(SQL_EVENT, new Object[] {event.getName()}, new EventMapper());
         String SQL = "INSERT INTO" + TICKET_TABLE + " (eventname, price, user, seat, istaken) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(SQL, event.getName(), event.getPrice(), user.getName(), 1, 1);
-        return null;
+        jdbcTemplate.update(SQL, event.getName(), event.getPrice(), user.getName(), 1, true);
+        Ticket ticket = new Ticket(user, event, event.getDate(), 1, true);
+        return ticket;
     }
 
 }

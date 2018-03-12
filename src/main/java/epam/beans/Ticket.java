@@ -12,12 +12,14 @@ public class Ticket implements Serializable, Comparable<Ticket> {
     private Event event;
     private LocalDateTime dateTime;
     private int seat;
+    private boolean isTaken;
 
-    public Ticket(User user, Event event, LocalDateTime dateTime, int seat) {
+    public Ticket(User user, Event event, LocalDateTime dateTime, int seat, boolean isTaken) {
         this.user = user;
         this.event = event;
         this.dateTime = dateTime;
         this.seat = seat;
+        this.isTaken = isTaken;
     }
 
     public User getUser() {
